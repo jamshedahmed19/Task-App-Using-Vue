@@ -36,7 +36,6 @@ export default {
             }
 
             this.$emit('add-task', {
-                id: Math.random(),
                 text: this.text,
                 day: this.day,
                 reminder: this.reminder
