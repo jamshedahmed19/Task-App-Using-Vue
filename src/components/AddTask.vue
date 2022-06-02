@@ -1,6 +1,5 @@
 <template>
     <form @submit="onSubmit">
-
         <div class="form-control">
             <label>Task</label>
             <input type="text" name="text" v-model="text" placeholder="Add Task" />
@@ -19,23 +18,27 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
     name: "AddTask",
     data() {
         return {
+            id: '',
             text: '',
             day: '',
             reminder: false
         }
     },
     methods: {
+        ...mapActions(['addTask']),
         onSubmit(e) {
             e.preventDefault();
             if (!this.text) {
                 alert("Please enter a task");
             }
 
-            this.$emit('add-task', {
+            this.addTask({
                 text: this.text,
                 day: this.day,
                 reminder: this.reminder
@@ -45,8 +48,7 @@ export default {
             this.day = '';
             this.reminder = false;
         }
-    }
-
+    },
 }
 
 </script>

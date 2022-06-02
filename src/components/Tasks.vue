@@ -1,23 +1,25 @@
 <template>
-    <div :key="task.id" v-for="task in tasks">
-        <Task @toggle-reminder="$emit('toggle-reminder', task.id)" @delete-task="$emit('delete-task', task.id)"
-            :task="task" />
+    <div :key="task.id" v-for="task in allTasks">
+        <Task :task="task" />
     </div>
 
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import Task from './Task.vue';
 
 export default {
     name: "Tasks",
-    props: {
-        tasks: {
-            type: Array,
-            required: true
-        }
-    },
     components: { Task },
-    emits: ["toggle-reminder", 'delete-task']
+    created() {
+        this.fetchTasks();
+    },
+    methods: {
+        ...mapActions(["fetchTasks"]),
+    },
+    computed: {
+        ...mapGetters(["allTasks"])
+    }
 }
 </script>
